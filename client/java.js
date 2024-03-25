@@ -1,21 +1,12 @@
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+function isValidDownloadLocation(location) {
+  // Check if the location starts with a valid protocol (http, https, file)
+  if (location.startsWith('http://') || location.startsWith('https://') || location.startsWith('file://')) {
+    return true;
+  }
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyCyOYJH7AQ6Rt_AylFnYuuFf7tptRqffAk",
-  authDomain: "midyear-choir-416608.firebaseapp.com",
-  databaseURL: "https://midyear-choir-416608-default-rtdb.firebaseio.com",
-  projectId: "midyear-choir-416608",
-  storageBucket: "midyear-choir-416608.appspot.com",
-  messagingSenderId: "5044418638",
-  appId: "1:5044418638:web:2ff3cac08e4f044482ab1f",
-  measurementId: "G-PLLQP9R7VD"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-getAnalytics(app);
+  // Check if the location is a valid file path with backslashes or forward slashes
+  return location.includes('\\') || location.includes('/');
+}
 
 document.addEventListener('DOMContentLoaded', function() {
   // Login functionality
@@ -136,15 +127,6 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log('Opening video:', videoUrl);
     }
   }
-});
-    const thumbnailElement = event.target.closest('.thumbnail');
-    if (thumbnailElement) {
-      const videoUrl = thumbnailElement.dataset.videoUrl;
-      // Open the video using the appropriate method (e.g., embed video player, provide download link)
-      // Example placeholder code:
-      console.log('Opening video:', videoUrl);
-    }
-  }
 
   function addThumbnail(videoUrl) {
     const thumbnailGrid = document.getElementById('thumbnail-grid');
@@ -175,4 +157,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Initialize the application
   loadState();
-});
+}); 
